@@ -5,6 +5,9 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 
+import ru.makovey.financeCore.exceptions.AmountException;
+import ru.makovey.financeCore.exceptions.CurrencyException;
+
 public interface Storage {
 
     /**
@@ -20,14 +23,14 @@ public interface Storage {
      * Метод добавления валюты в хранилище
      * @param currency
      */
-    void addCurrency(Currency currency);
+    void addCurrency(Currency currency) throws CurrencyException;
 
 
     /**
      * Метод удаления валюты из хранилища
      * @param currency
      */
-    void deleteCurrency(Currency currency);
+    void deleteCurrency(Currency currency) throws CurrencyException;
 
 
     /**
@@ -50,7 +53,7 @@ public interface Storage {
      * @param amount - остаток
      * @param currency - сама валюта
      */
-    void changeAmount(BigDecimal amount, Currency currency);
+    void changeAmount(BigDecimal amount, Currency currency) throws CurrencyException;
 
 
     /**
@@ -58,7 +61,7 @@ public interface Storage {
      * @param amount - сумма добавления
      * @param currency - валюта
      */
-    void addAmount(BigDecimal amount, Currency currency);
+    void addAmount(BigDecimal amount, Currency currency) throws CurrencyException;
 
 
     /**
@@ -66,7 +69,7 @@ public interface Storage {
      * @param amount - сумма вычитания
      * @param currency - валюта
      */
-    void expenseAmount(BigDecimal amount, Currency currency);
+    void expenseAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException;
 
 
 
@@ -83,7 +86,7 @@ public interface Storage {
      * @param currency - валюта
      * @return остаток
      */
-    BigDecimal getAmount(Currency currency);
+    BigDecimal getAmount(Currency currency) throws CurrencyException;
 
 
     /**
