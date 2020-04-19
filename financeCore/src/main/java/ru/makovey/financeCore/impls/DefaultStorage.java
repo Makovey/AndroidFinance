@@ -7,46 +7,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ru.makovey.financeCore.Abstracts.AbstractCompositeTree;
 import ru.makovey.financeCore.exceptions.AmountException;
 import ru.makovey.financeCore.exceptions.CurrencyException;
 import ru.makovey.financeCore.interfaces.Storage;
 
-public class DefaulstStorage implements Storage {
+public class DefaultStorage extends AbstractCompositeTree implements Storage {
 
-    DefaulstStorage(){}
+    public DefaultStorage(){}
 
-    public DefaulstStorage(String name){
-        this.name = name;
+    public DefaultStorage(String name){
+        super(name);
     }
 
-    public DefaulstStorage(String name, Map<Currency, BigDecimal> currencyAmounts, List<Currency> currencyList) {
-        this.name = name;
+    public DefaultStorage(String name, int id) {
+        super(name, id);
+    }
+
+    public DefaultStorage(String name, Map<Currency, BigDecimal> currencyAmounts, List<Currency> currencyList) {
+        super(name);
         this.currencyAmounts = currencyAmounts;
         this.currencyList = currencyList;
     }
 
-    public DefaulstStorage(List<Currency> currencyList) {
+    public DefaultStorage(List<Currency> currencyList) {
         this.currencyList = currencyList;
     }
 
-    public DefaulstStorage(Map<Currency, BigDecimal> currencyAmounts) {
+    public DefaultStorage(Map<Currency, BigDecimal> currencyAmounts) {
         this.currencyAmounts = currencyAmounts;
     }
 
-    private String name;
+
+
     private Map<Currency, BigDecimal> currencyAmounts = new HashMap<>();
 
     // Коллекция необходима для получеиня только валют, без лишней информации
     private List<Currency> currencyList = new ArrayList<>();
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public Map<Currency, BigDecimal> getCurrencyAmounts() {
