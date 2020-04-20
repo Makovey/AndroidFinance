@@ -1,4 +1,4 @@
-package ru.makovey.financeCore.Abstracts;
+package ru.makovey.financeCore.abstracts;
 
 import java.util.ArrayList;
 import java.util.List;

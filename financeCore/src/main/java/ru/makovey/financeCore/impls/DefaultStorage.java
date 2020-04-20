@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.makovey.financeCore.Abstracts.AbstractCompositeTree;
+import ru.makovey.financeCore.abstracts.AbstractCompositeTree;
 import ru.makovey.financeCore.exceptions.AmountException;
 import ru.makovey.financeCore.exceptions.CurrencyException;
 import ru.makovey.financeCore.interfaces.Storage;
