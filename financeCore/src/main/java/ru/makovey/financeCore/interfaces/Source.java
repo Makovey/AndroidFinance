@@ -2,11 +2,7 @@ package ru.makovey.financeCore.interfaces;
 
 import ru.makovey.financeCore.objects.OperationType;
 
-public interface Source {
-
-    String getName();
-
-    int getId();
+public interface Source extends CompositeTree{
 
     /**
      * Тип операции, взависимости от типа будут выбираться доступные деревья

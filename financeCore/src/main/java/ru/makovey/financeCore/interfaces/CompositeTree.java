@@ -67,4 +67,11 @@ public interface CompositeTree {
      * @param parent
      */
     void setParent(CompositeTree parent);
+
+
+    /**
+     * Есть ли дочерние элементы
+     * @return
+     */
+    boolean hasChilds();
 }

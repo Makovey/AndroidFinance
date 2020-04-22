@@ -86,6 +86,11 @@ public abstract class AbstractCompositeTree implements CompositeTree {
     }
 
     @Override
+    public boolean hasChilds() {
+        return !childs.isEmpty();
+    }
+
+    @Override
     public CompositeTree getParent() {
         return parent;
     }

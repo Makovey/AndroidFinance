@@ -8,15 +8,7 @@ import java.util.Map;
 import ru.makovey.financeCore.exceptions.AmountException;
 import ru.makovey.financeCore.exceptions.CurrencyException;
 
-public interface Storage {
-
-    /**
-     * Метод получения имени хранилища
-     * @return имя хранилища
-     */
-    String getName();
-
-
+public interface Storage extends CompositeTree{
 
     // Работа с валютой
     /**
