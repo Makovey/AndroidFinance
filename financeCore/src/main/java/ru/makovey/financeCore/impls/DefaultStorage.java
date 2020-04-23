@@ -90,11 +90,8 @@ public class DefaultStorage extends AbstractCompositeTree implements Storage {
         if (currencyAmounts.get(currency).equals(BigDecimal.ZERO)) {
             throw new CurrencyException("Can't delete currency with amount.");
         }
-
-
         currencyAmounts.remove(currency);
         currencyList.remove(currency);
-
     }
 
 

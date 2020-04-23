@@ -61,7 +61,7 @@ public abstract class AbstractCompositeTree implements CompositeTree {
 
     @Override
     public void addChild(CompositeTree child) {
-        parent.setParent(this);
+        child.setParent(this);
         childs.add(child);
     }
 
