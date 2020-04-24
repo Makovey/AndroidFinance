@@ -29,7 +29,7 @@ public class StorageDAOImpl implements StorageDAO {
 
     @Override
     public boolean addCurrency(Storage storage, Currency currency) {
-        try (PreparedStatement stmt = SQLConnection.getConncetion().prepareStatement("INSERT INTO" + CURRENCY_TABLE + " (currency_code, storage_id, amount) VALUES (?,?,?)")) {
+        try (PreparedStatement stmt = SQLConnection.getConncetion().prepareStatement("INSERT INTO " + CURRENCY_TABLE + " (currency_code, storage_id, amount) VALUES (?,?,?)")) {
 
             stmt.setString(1, currency.getCurrencyCode());
             stmt.setInt(2, storage.getId());
@@ -61,7 +61,7 @@ public class StorageDAOImpl implements StorageDAO {
     }
 
     @Override
-    public boolean updateAmount(Storage storage, BigDecimal amount) {
+    public boolean updateAmount(Storage storage, Currency currency, BigDecimal amount) {
         return false;
     }
 
