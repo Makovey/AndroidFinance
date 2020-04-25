@@ -1,6 +1,6 @@
 package ru.makovey.financeCore.interfaces;
 
-import ru.makovey.financeCore.objects.OperationType;
+import ru.makovey.financeCore.enums.OperationTypeEnum;
 
 public interface Source extends CompositeTree{
 
@@ -8,5 +8,5 @@ public interface Source extends CompositeTree{
      * Тип операции, взависимости от типа будут выбираться доступные деревья
      * @return тип операции
      */
-    OperationType getOperationType();
+    OperationTypeEnum getOperationType();
 }

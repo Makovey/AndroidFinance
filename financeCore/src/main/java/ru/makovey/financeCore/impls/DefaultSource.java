@@ -3,9 +3,9 @@ package ru.makovey.financeCore.impls;
 import java.util.List;
 
 import ru.makovey.financeCore.abstracts.AbstractCompositeTree;
+import ru.makovey.financeCore.enums.OperationTypeEnum;
 import ru.makovey.financeCore.interfaces.CompositeTree;
 import ru.makovey.financeCore.interfaces.Source;
-import ru.makovey.financeCore.objects.OperationType;
 
 public class DefaultSource extends AbstractCompositeTree implements Source {
 
@@ -28,25 +28,25 @@ public class DefaultSource extends AbstractCompositeTree implements Source {
         super(name, id, childs, parent);
     }
 
-    public DefaultSource(String name, ru.makovey.financeCore.objects.OperationType operationType) {
+    public DefaultSource(String name, OperationTypeEnum operationType) {
         super(name);
-        operationType = operationType;
+        this.operationType = operationType;
     }
 
-    public DefaultSource(String name, int id, ru.makovey.financeCore.objects.OperationType operationType) {
+    public DefaultSource(String name, int id, OperationTypeEnum operationType) {
         super(name, id);
-        operationType = operationType;
+        this.operationType = operationType;
     }
 
-    private OperationType operationType;
+    private OperationTypeEnum operationType;
 
     @Override
-    public ru.makovey.financeCore.objects.OperationType getOperationType() {
+    public OperationTypeEnum getOperationType() {
         return operationType;
     }
 
-    public void setOperationType(ru.makovey.financeCore.objects.OperationType operationType) {
-        operationType = operationType;
+    public void setOperationType(OperationTypeEnum operationType) {
+        this.operationType = operationType;
     }
 
     @Override
