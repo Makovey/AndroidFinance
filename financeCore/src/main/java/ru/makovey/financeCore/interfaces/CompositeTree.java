@@ -43,6 +43,13 @@ public interface CompositeTree {
      */
     List<CompositeTree> getChilds();
 
+    /**
+     * Возвращает id родителя
+     *
+     * @return id
+     */
+    int getParentId();
+
 
     /**
      * Получить элемент по id

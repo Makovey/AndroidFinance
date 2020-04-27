@@ -40,6 +40,7 @@ public abstract class AbstractCompositeTree implements CompositeTree {
 
     private CompositeTree parent;
 
+    private int parentId;
 
     @Override
     public String getName() {
@@ -57,6 +58,14 @@ public abstract class AbstractCompositeTree implements CompositeTree {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     @Override
