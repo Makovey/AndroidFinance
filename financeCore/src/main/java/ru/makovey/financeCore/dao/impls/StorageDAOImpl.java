@@ -15,25 +15,21 @@ import ru.makovey.financeCore.dao.interfaces.StorageDAO;
 import ru.makovey.financeCore.database.SQLConnection;
 import ru.makovey.financeCore.impls.DefaultStorage;
 import ru.makovey.financeCore.interfaces.Storage;
-import ru.makovey.financeCore.util.TreeBuilder;
 
 public class StorageDAOImpl implements StorageDAO {
 
     private static final String CURRENCY_TABLE = "currency_amount";
     private static final String STORAGE_TABLE = "storage";
 
-    private TreeBuilder<Storage> treeBuilder = new TreeBuilder<>();
-
     private List<Storage> storageList = new ArrayList<>();
 
 
     @Override
     public boolean addCurrency(Storage storage, Currency currency) {
-        try (PreparedStatement stmt = SQLConnection.getConncetion().prepareStatement("INSERT INTO " + CURRENCY_TABLE + " (currency_code, storage_id, amount) VALUES (?,?,?)")) {
+        try (PreparedStatement stmt = SQLConnection.getConncetion().prepareStatement("INSERT INTO " + CURRENCY_TABLE + " (currency_code, storage_id) VALUES (?,?)")) {
 
             stmt.setString(1, currency.getCurrencyCode());
             stmt.setInt(2, storage.getId());
-            stmt.setBigDecimal(3, BigDecimal.ZERO);
 
             if (stmt.executeUpdate() == 1) return true;
 
@@ -68,15 +64,13 @@ public class StorageDAOImpl implements StorageDAO {
     @Override
     public List<Storage> getAll() {
         storageList.clear();
-        try (Statement stmt = SQLConnection.getConncetion().createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM " + STORAGE_TABLE)) {
+        try (Statement stmt = SQLConnection.getConncetion().createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM " + STORAGE_TABLE + " ORDER BY parent_id")) {
             while(rs.next()){
                 DefaultStorage defaultStorage = new DefaultStorage();
                 defaultStorage.setId(rs.getInt("id"));
                 defaultStorage.setName(rs.getString("name"));
-
-                int parentId = rs.getInt("parent_id");
-
-                treeBuilder.addToTree(parentId, defaultStorage, storageList);
+                defaultStorage.setParentId(rs.getInt("parent_id"));
+                storageList.add(defaultStorage);
             }
 
             return storageList;

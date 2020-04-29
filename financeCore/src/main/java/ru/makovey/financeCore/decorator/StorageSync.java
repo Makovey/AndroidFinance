@@ -1,29 +1,43 @@
 package ru.makovey.financeCore.decorator;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ru.makovey.financeCore.dao.interfaces.StorageDAO;
 import ru.makovey.financeCore.exceptions.CurrencyException;
 import ru.makovey.financeCore.interfaces.Storage;
+import ru.makovey.financeCore.util.TreeBuilder;
 
 /**
  * Декоратор для StorageDAO
  * Синхронизирует работу БД с основной коллекцией
  */
-public class StorageSynchronizer implements StorageDAO {
+public class StorageSync implements StorageDAO {
 
     private StorageDAO storageDAO;
     private List<Storage> storageList;
+    private List<Storage> treeList = new ArrayList<>();
+    private TreeBuilder<Storage> treeBuilder = new TreeBuilder<>(); // хранит дерево объектов
+    private Map<Integer, Storage> identityMap = new HashMap<>(); // список коллекций, нужна для быстрого получения объекта по id и не обращаться к БД
 
-    public StorageSynchronizer(StorageDAO storageDAO) {
+
+
+    public StorageSync(StorageDAO storageDAO) {
         this.storageDAO = storageDAO;
         initCollection();
     }
 
     private void initCollection() {
         storageList = storageDAO.getAll();
+
+        for (Storage s : storageList) {
+            identityMap.put(s.getId(), s);
+            treeBuilder.addToTree(s.getParentId(), s, treeList);
+        }
     }
 
     @Override
@@ -63,7 +77,7 @@ public class StorageSynchronizer implements StorageDAO {
 
     @Override
     public Storage get(int id) {
-        return storageDAO.get(id);
+        return identityMap.get(id);
     }
 
     @Override
