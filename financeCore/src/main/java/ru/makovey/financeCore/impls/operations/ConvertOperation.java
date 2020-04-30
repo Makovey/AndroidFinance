@@ -12,6 +12,8 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 public class ConvertOperation extends AbstractOperation {
 
+    public ConvertOperation(){}
+
     public ConvertOperation(Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
         this.fromStorage = fromStorage;
         this.toStorage = toStorage;

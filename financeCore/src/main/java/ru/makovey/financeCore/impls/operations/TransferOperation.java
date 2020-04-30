@@ -12,27 +12,29 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 public class TransferOperation extends AbstractOperation {
 
-    public TransferOperation(Storage fromStorage, Storage toStorage, BigDecimal amount, Currency currency) {
+    public TransferOperation(){}
+
+    public TransferOperation(Storage fromStorage, Storage toStorage, BigDecimal fromAmount, Currency fromCurrency) {
         this.fromStorage = fromStorage;
         this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
+        this.fromAmount = fromAmount;
+        this.fromCurrency = fromCurrency;
     }
 
-    public TransferOperation(int id, Storage fromStorage, Storage toStorage, BigDecimal amount, Currency currency) {
+    public TransferOperation(int id, Storage fromStorage, Storage toStorage, BigDecimal fromAmount, Currency fromCurrency) {
         super(id);
         this.fromStorage = fromStorage;
         this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
+        this.fromAmount = fromAmount;
+        this.fromCurrency = fromCurrency;
     }
 
-    public TransferOperation(int id, Calendar date, String addInfo, Storage fromStorage, Storage toStorage, BigDecimal amount, Currency currency) {
+    public TransferOperation(int id, Calendar date, String addInfo, Storage fromStorage, Storage toStorage, BigDecimal fromAmount, Currency fromCurrency) {
         super(id, date, addInfo);
         this.fromStorage = fromStorage;
         this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
+        this.fromAmount = fromAmount;
+        this.fromCurrency = fromCurrency;
     }
 
     /**
@@ -48,12 +50,12 @@ public class TransferOperation extends AbstractOperation {
     /**
      * Сумма которую будем перечислять
      */
-    private BigDecimal amount;
+    private BigDecimal fromAmount;
 
     /**
      * В какой валюте будем перечислять
      */
-    private Currency currency;
+    private Currency fromCurrency;
 
     public Storage getFromStorage() {
         return fromStorage;
@@ -71,19 +73,19 @@ public class TransferOperation extends AbstractOperation {
         this.toStorage = toStorage;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getFromAmount() {
+        return fromAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setFromAmount(BigDecimal fromAmount) {
+        this.fromAmount = fromAmount;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public Currency getFromCurrency() {
+        return fromCurrency;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
+    public void setFromCurrency(Currency fromCurrency) {
+        this.fromCurrency = fromCurrency;
     }
 }

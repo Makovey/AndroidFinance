@@ -2,18 +2,23 @@ package ru.makovey.financeCore.abstracts;
 
 import java.util.Calendar;
 
-public abstract class AbstractOperation {
+import ru.makovey.financeCore.enums.OperationType;
+import ru.makovey.financeCore.interfaces.Operation;
+
+public abstract class AbstractOperation implements Operation {
 
     public AbstractOperation(){}
 
-    public AbstractOperation(int id) {
-        this.id = id;
-    }
-
-    public AbstractOperation(int id, Calendar date, String addInfo) {
+    public AbstractOperation(int id, Calendar date, String description, OperationType operationType) {
         this.id = id;
         this.date = date;
-        this.addInfo = addInfo;
+        this.description = description;
+        this.operationType = operationType;
+    }
+
+    public AbstractOperation(int id, OperationType operationType) {
+        this.id = id;
+        this.operationType = operationType;
     }
 
     /**
@@ -29,7 +34,12 @@ public abstract class AbstractOperation {
     /**
      * Дополнительная информация
      */
-    private String addInfo;
+    private String description;
+
+    /**
+     * Тип операции
+     */
+    private OperationType operationType;
 
     public int getId() {
         return id;
@@ -47,11 +57,19 @@ public abstract class AbstractOperation {
         this.date = date;
     }
 
-    public String getAddInfo() {
-        return addInfo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAddInfo(String addInfo) {
-        this.addInfo = addInfo;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public OperationType getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType;
     }
 }

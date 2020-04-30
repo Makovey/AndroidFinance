@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import ru.makovey.financeCore.dao.interfaces.SourceDAO;
-import ru.makovey.financeCore.enums.OperationTypeEnum;
+import ru.makovey.financeCore.enums.OperationType;
 import ru.makovey.financeCore.interfaces.Source;
 import ru.makovey.financeCore.util.TreeBuilder;
 
@@ -20,7 +20,7 @@ public class SourceSync implements SourceDAO {
 
     private List<Source> treeSource = new ArrayList<>(); // объекты хранятся в виде дерева
     private Map<Integer, Source> identityMap = new HashMap<>(); // список коллекций, нужна для быстрого получения объекта по id и не обращаться к БД
-    private Map<OperationTypeEnum, List<Source>> sourceMap = new EnumMap<>(OperationTypeEnum.class); // дерево, разбито по типам операции
+    private Map<OperationType, List<Source>> sourceMap = new EnumMap<>(OperationType.class); // дерево, разбито по типам операции
 
     public SourceSync(SourceDAO sourceDAO) {
         this.sourceDAO = sourceDAO;
@@ -43,7 +43,7 @@ public class SourceSync implements SourceDAO {
      * Инициализируется один раз
      */
     private void fillSourceMap(List<Source> list) {
-        for (OperationTypeEnum type : OperationTypeEnum.values()) {
+        for (OperationType type : OperationType.values()) {
             sourceMap.put(type, list.stream().filter(s -> s.getOperationType() == type).collect(Collectors.toList()));
         }
     }
@@ -83,8 +83,15 @@ public class SourceSync implements SourceDAO {
     }
 
     @Override
-    public List<Source> getList(OperationTypeEnum operationTypeEnum) {
-        return sourceMap.get(operationTypeEnum);
+    public List<Source> getList(OperationType operationType) {
+        return sourceMap.get(operationType);
+    }
+
+    @Override
+    public boolean add(Source object) {
+        if(sourceDAO.add(object){
+
+        }
     }
 
     // если понадабятся получить напрямую из DP

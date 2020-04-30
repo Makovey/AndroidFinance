@@ -35,33 +35,17 @@ public interface Storage extends CompositeTree{
      * Метод возвращения всех доступных валют
      * @return список валют
      */
-    List<Currency> getcurrencyList();
+    List<Currency> getCurrencyList();
 
 
 
     // Изменение баланса
     /**
-     * Метод изменения баланса по определенной валюте
-     * @param amount - остаток
-     * @param currency - сама валюта
-     */
-    void changeAmount(BigDecimal amount, Currency currency) throws CurrencyException;
-
-
-    /**
-     * Метод добавления суммы в остаток
-     * @param amount - сумма добавления
-     * @param currency - валюта
-     */
-    void addAmount(BigDecimal amount, Currency currency) throws CurrencyException;
-
-
-    /**
      * Метод вычитания суммы в валюте
      * @param amount - сумма вычитания
      * @param currency - валюта
      */
-    void expenseAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException;
+    void updateAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException;
 
 
 

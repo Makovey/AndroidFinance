@@ -110,6 +110,11 @@ public abstract class AbstractCompositeTree implements CompositeTree {
     }
 
     @Override
+    public boolean hasParent() {
+        return parent != null;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

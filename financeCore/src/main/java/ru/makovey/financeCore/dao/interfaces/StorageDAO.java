@@ -13,7 +13,7 @@ public interface StorageDAO extends CommonDAO<Storage> {
      * @param currency
      * @return true || false (для последующих проверок)
      */
-    boolean addCurrency(Storage storage, Currency currency) throws CurrencyException;
+    boolean addCurrency(Storage storage, Currency currency, BigDecimal amount) throws CurrencyException;
 
     /**
      * Удалить валюту

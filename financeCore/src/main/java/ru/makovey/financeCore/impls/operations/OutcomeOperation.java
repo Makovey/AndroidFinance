@@ -12,27 +12,30 @@ import ru.makovey.financeCore.interfaces.Storage;
  * Операция "Расход"
  */
 public class OutcomeOperation extends AbstractOperation {
-    public OutcomeOperation(Storage fromStorage, Source toSource, BigDecimal amount, java.util.Currency currency) {
+
+    public OutcomeOperation(){}
+
+    public OutcomeOperation(Storage fromStorage, Source toSource, BigDecimal fromAmount, java.util.Currency fromCurrency) {
         this.fromStorage = fromStorage;
         this.toSource = toSource;
-        this.amount = amount;
-        Currency = currency;
+        this.fromAmount = fromAmount;
+        this.fromCurrency = fromCurrency;
     }
 
-    public OutcomeOperation(int id, Storage fromStorage, Source toSource, BigDecimal amount, java.util.Currency currency) {
+    public OutcomeOperation(int id, Storage fromStorage, Source toSource, BigDecimal fromAmount, java.util.Currency fromCurrency) {
         super(id);
         this.fromStorage = fromStorage;
         this.toSource = toSource;
-        this.amount = amount;
-        Currency = currency;
+        this.fromAmount = fromAmount;
+        this.fromCurrency = fromCurrency;
     }
 
-    public OutcomeOperation(int id, Calendar date, String addInfo, Storage fromStorage, Source toSource, BigDecimal amount, java.util.Currency currency) {
+    public OutcomeOperation(int id, Calendar date, String addInfo, Storage fromStorage, Source toSource, BigDecimal fromAmount, java.util.Currency fromCurrency) {
         super(id, date, addInfo);
         this.fromStorage = fromStorage;
         this.toSource = toSource;
-        this.amount = amount;
-        Currency = currency;
+        this.fromAmount = fromAmount;
+        this.fromCurrency = fromCurrency;
     }
 
     /**
@@ -48,12 +51,12 @@ public class OutcomeOperation extends AbstractOperation {
     /**
      * Сумма которая пришла
      */
-    private BigDecimal amount;
+    private BigDecimal fromAmount;
 
     /**
      * Валюта в которой пришла
      */
-    private Currency Currency;
+    private Currency fromCurrency;
 
     public Storage getFromStorage() {
         return fromStorage;
@@ -71,19 +74,19 @@ public class OutcomeOperation extends AbstractOperation {
         this.toSource = toSource;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getFromAmount() {
+        return fromAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setFromAmount(BigDecimal fromAmount) {
+        this.fromAmount = fromAmount;
     }
 
-    public java.util.Currency getCurrency() {
-        return Currency;
+    public java.util.Currency getFromCurrency() {
+        return fromCurrency;
     }
 
-    public void setCurrency(java.util.Currency currency) {
-        Currency = currency;
+    public void setFromCurrency(java.util.Currency fromCurrency) {
+        this.fromCurrency = fromCurrency;
     }
 }

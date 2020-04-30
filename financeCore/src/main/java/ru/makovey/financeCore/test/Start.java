@@ -1,4 +1,4 @@
-package ru.makovey.financeCore;
+package ru.makovey.financeCore.test;
 
 import java.util.Currency;
 

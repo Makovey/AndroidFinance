@@ -23,15 +23,23 @@ public interface CommonDAO<T> {
 
     /**
      * Обновить значение
-     * @param storage
+     * @param object
      * @return
      */
-    boolean update(T storage);
+    boolean update(T object);
 
     /**
      * Удалить значение
-     * @param storage
+     * @param object
      * @return
      */
-    boolean delete(T storage);
+    boolean delete(T object);
+
+    /**
+     * Добавить значение
+     * @param object
+     * @return
+     */
+    boolean add(T object);
+
 }

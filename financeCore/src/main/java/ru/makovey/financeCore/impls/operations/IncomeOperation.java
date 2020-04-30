@@ -13,27 +13,30 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 //TODO для всех классов создать конструкторы без id, так как будет autoincrement в бд
 public class IncomeOperation extends AbstractOperation {
-    public IncomeOperation(Source fromSource, Storage toStorage, BigDecimal amount, java.util.Currency currency) {
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.amount = amount;
-        Currency = currency;
+    public IncomeOperation() {
     }
 
-    public IncomeOperation(int id, Source fromSource, Storage toStorage, BigDecimal amount, java.util.Currency currency) {
+    public IncomeOperation(Source fromSource, Storage toStorage, BigDecimal fromAmount, java.util.Currency currency) {
+        this.fromSource = fromSource;
+        this.toStorage = toStorage;
+        this.fromAmount = fromAmount;
+        fromCurrency = currency;
+    }
+
+    public IncomeOperation(int id, Source fromSource, Storage toStorage, BigDecimal fromAmount, java.util.Currency currency) {
         super(id);
         this.fromSource = fromSource;
         this.toStorage = toStorage;
-        this.amount = amount;
-        Currency = currency;
+        this.fromAmount = fromAmount;
+        fromCurrency = currency;
     }
 
-    public IncomeOperation(int id, Calendar date, String addInfo, Source fromSource, Storage toStorage, BigDecimal amount, java.util.Currency currency) {
+    public IncomeOperation(int id, Calendar date, String addInfo, Source fromSource, Storage toStorage, BigDecimal fromAmount, java.util.Currency currency) {
         super(id, date, addInfo);
         this.fromSource = fromSource;
         this.toStorage = toStorage;
-        this.amount = amount;
-        Currency = currency;
+        this.fromAmount = fromAmount;
+        fromCurrency = currency;
     }
 
     /**
@@ -49,12 +52,12 @@ public class IncomeOperation extends AbstractOperation {
     /**
      * Сумма которая пришла
      */
-    private BigDecimal amount;
+    private BigDecimal fromAmount;
 
     /**
      * Валюта в которой пришла
      */
-    private Currency Currency;
+    private Currency fromCurrency;
 
     public Source getFromSource() {
         return fromSource;
@@ -72,19 +75,19 @@ public class IncomeOperation extends AbstractOperation {
         this.toStorage = toStorage;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getFromAmount() {
+        return fromAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setFromAmount(BigDecimal fromAmount) {
+        this.fromAmount = fromAmount;
     }
 
-    public java.util.Currency getCurrency() {
-        return Currency;
+    public Currency getFromCurrency() {
+        return fromCurrency;
     }
 
-    public void setCurrency(java.util.Currency currency) {
-        Currency = currency;
+    public void setFromCurrency(Currency currency) {
+        fromCurrency = currency;
     }
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import ru.makovey.financeCore.abstracts.AbstractCompositeTree;
-import ru.makovey.financeCore.exceptions.AmountException;
 import ru.makovey.financeCore.exceptions.CurrencyException;
 import ru.makovey.financeCore.interfaces.Storage;
 
@@ -55,7 +54,7 @@ public class DefaultStorage extends AbstractCompositeTree implements Storage {
     }
 
     @Override
-    public List<Currency> getcurrencyList() {
+    public List<Currency> getCurrencyList() {
         return currencyList;
     }
 
@@ -63,9 +62,8 @@ public class DefaultStorage extends AbstractCompositeTree implements Storage {
         this.currencyList = currencyList;
     }
 
-    // Происходит обновление баланса
     @Override
-    public void changeAmount(BigDecimal amount, Currency currency) throws CurrencyException {
+    public void updateAmount(BigDecimal amount, Currency currency) throws CurrencyException {
         checkCurrencyExist(currency);
         currencyAmounts.put(currency, amount);
     }
@@ -87,9 +85,9 @@ public class DefaultStorage extends AbstractCompositeTree implements Storage {
         checkCurrencyExist(currency);
 
         // Если на балансе есть деньги, не даем удалить эту валюту
-        if (currencyAmounts.get(currency).equals(BigDecimal.ZERO)) {
-            throw new CurrencyException("Can't delete currency with amount.");
-        }
+//        if (currencyAmounts.get(currency).equals(BigDecimal.ZERO)) {
+//            throw new CurrencyException("Can't delete currency with amount.");
+//        }
         currencyAmounts.remove(currency);
         currencyList.remove(currency);
     }
@@ -104,23 +102,7 @@ public class DefaultStorage extends AbstractCompositeTree implements Storage {
         }
         return null;
     }
-
-    @Override
-    public void addAmount(BigDecimal amount, Currency currency) throws CurrencyException {
-        checkCurrencyExist(currency);
-        // Вытаскиваем старое значение и добавляем новое
-        currencyAmounts.put(currency, currencyAmounts.get(currency).add(amount));
-    }
-
-    @Override
-    public void expenseAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException {
-        checkCurrencyExist(currency);
-        if (currencyAmounts.get(currency).compareTo(amount) < 0)
-            throw new AmountException("Amount can't be < 0.");
-        // Вытаскиваем старое значение, вычитаем с новым и записываем в Map
-        currencyAmounts.put(currency, currencyAmounts.get(currency).subtract(amount));
-    }
-
+    
     @Override
     public BigDecimal getAmount(Currency currency) throws CurrencyException {
         checkCurrencyExist(currency);

@@ -11,6 +11,11 @@ public interface CompositeTree {
      */
     int getId();
 
+    /**
+     * Устанавливает id
+     */
+    void setId(int id);
+
 
     /**
      * Имя узла
@@ -81,4 +86,10 @@ public interface CompositeTree {
      * @return
      */
     boolean hasChilds();
+
+    /**
+     * Есть ли родительский элемент
+     * @return
+     */
+    boolean hasParent();
 }

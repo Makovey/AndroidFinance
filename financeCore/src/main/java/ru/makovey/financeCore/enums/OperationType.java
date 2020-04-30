@@ -8,10 +8,10 @@ import java.util.Map;
  * Типы операций.
  * id операции в enum соответствует id в БД
  */
-public enum OperationTypeEnum {
+public enum OperationType {
     INCOME(1), OUTCOME(2), TRANSFER(3), CONVERT(4);
 
-    private OperationTypeEnum(int id){
+    private OperationType(int id){
         this.id = id;
     }
 
@@ -21,15 +21,15 @@ public enum OperationTypeEnum {
         return id;
     }
 
-    private static Map<Integer, OperationTypeEnum> map = new HashMap<>();
+    private static Map<Integer, OperationType> map = new HashMap<>();
 
     static {
-        for(OperationTypeEnum operation : OperationTypeEnum.values()){
+        for(OperationType operation : OperationType.values()){
             map.put(operation.getId(), operation);
         }
     }
 
-    public static OperationTypeEnum getType(int id){
+    public static OperationType getType(int id){
         return map.get(id);
     }
 }
