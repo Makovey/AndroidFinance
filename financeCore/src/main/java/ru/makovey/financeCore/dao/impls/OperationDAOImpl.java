@@ -139,7 +139,7 @@ public class OperationDAOImpl implements OperationDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    AbstractOperation operation =fillOperation(rs);
+                    AbstractOperation operation = fillOperation(rs);
                     return operation;
                 }
             }
@@ -162,6 +162,91 @@ public class OperationDAOImpl implements OperationDAO {
 
     @Override
     public boolean add(Operation object) {
+        String request = createSqlRequest(object.getOperationType());
+
+        try (PreparedStatement stmt = SQLConnection.getConncetion().prepareStatement(request, Statement.RETURN_GENERATED_KEYS)) {
+
+            // заполняются общие поля
+            stmt.setLong(1, object.getDateTime().getTimeInMillis());
+            stmt.setInt(2, object.getOperationType().getId());
+            stmt.setString(3, object.getDescription());
+
+            // заполняются поля для типов операции
+            switch (object.getOperationType()) {
+                case INCOME:
+                    IncomeOperation incomeOperation = (IncomeOperation) object;
+
+                    stmt.setInt(4, incomeOperation.getFromSource().getId());
+                    stmt.setString(5, incomeOperation.getFromCurrency().getCurrencyCode());
+                    stmt.setBigDecimal(6, incomeOperation.getFromAmount());
+                    stmt.setInt(7, incomeOperation.getToStorage().getId());
+
+                    break;
+
+                case OUTCOME:
+                    OutcomeOperation outcomeOperation = (OutcomeOperation) object;
+
+                    stmt.setInt(4, outcomeOperation.getFromStorage().getId());
+                    stmt.setString(5, outcomeOperation.getFromCurrency().getCurrencyCode());
+                    stmt.setBigDecimal(6, outcomeOperation.getFromAmount());
+                    stmt.setInt(7, outcomeOperation.getToSource().getId());
+
+                    break;
+
+                case TRANSFER:
+                    TransferOperation transferOperation = (TransferOperation) object;
+
+                    stmt.setInt(4, transferOperation.getFromStorage().getId());
+                    stmt.setString(5, transferOperation.getFromCurrency().getCurrencyCode());
+                    stmt.setBigDecimal(6, transferOperation.getFromAmount());
+                    stmt.setInt(7, transferOperation.getToStorage().getId());
+
+                    break;
+                case CONVERT:
+                    ConvertOperation convertOperation = (ConvertOperation) object;
+
+                    stmt.setLong(4, convertOperation.getFromStorage().getId());
+                    stmt.setString(5, convertOperation.getFromCurrency().getCurrencyCode());
+                    stmt.setBigDecimal(6, convertOperation.getFromAmount());
+                    stmt.setLong(7, convertOperation.getToStorage().getId());
+                    stmt.setString(8, convertOperation.getToCurrency().getCurrencyCode());
+                    stmt.setBigDecimal(9, convertOperation.getToAmount());
+
+                    break;
+            }
+
+            if (stmt.executeUpdate() == 1) {// если объект добавился нормально
+                try (ResultSet rs = stmt.getGeneratedKeys()) {// получаем id вставленной записи
+
+                    if (rs.next()) {
+                        object.setId(rs.getInt(1));// не забываем просвоить новый id в объект
+                    }
+
+                    return true;
+                }
+
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(SourceDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+
         return false;
+    }
+
+    private String createSqlRequest(OperationType operationType) {
+        StringBuilder stringBuilder = new StringBuilder("INSERT INTO " + OPERATION_TABLE + " (datetime, type_id, description, "); // запрос собирается частями в зависимости от типа
+
+        switch (operationType) {
+            case INCOME:
+                return stringBuilder.append("from_source_id, from_currency_code, from_amount, to_storage_id) values(?,?,?,?,?,?,?)").toString();
+            case OUTCOME:
+                return stringBuilder.append("from_storage_id, from_currency_code, from_amount, to_source_id) values(?,?,?,?,?,?,?)").toString();
+            case TRANSFER:
+                return stringBuilder.append("from_storage_id, from_currency_code, from_amount, to_storage_id) values(?,?,?,?,?,?,?)").toString();
+            case CONVERT:
+                return stringBuilder.append("from_storage_id, from_currency_code, from_amount, to_storage_id, to_currency_code, to_amount) values(?,?,?,?,?,?,?,?,?)").toString();
+        }
+
+        return null;
     }
 }
