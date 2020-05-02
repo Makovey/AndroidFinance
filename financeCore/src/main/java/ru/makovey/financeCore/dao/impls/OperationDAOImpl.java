@@ -157,6 +157,18 @@ public class OperationDAOImpl implements OperationDAO {
 
     @Override
     public boolean delete(Operation object) {
+        try (PreparedStatement stmt = SQLConnection.getConncetion().prepareStatement("DELETE FROM " + OPERATION_TABLE + " WHERE id=?")) {
+
+            stmt.setInt(1, object.getId());
+
+            if (stmt.executeUpdate() == 1) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(OperationDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+
         return false;
     }
 

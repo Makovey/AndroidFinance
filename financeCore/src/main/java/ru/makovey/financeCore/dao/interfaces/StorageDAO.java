@@ -3,6 +3,7 @@ package ru.makovey.financeCore.dao.interfaces;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+import ru.makovey.financeCore.exceptions.AmountException;
 import ru.makovey.financeCore.exceptions.CurrencyException;
 import ru.makovey.financeCore.interfaces.Storage;
 
@@ -30,5 +31,5 @@ public interface StorageDAO extends CommonDAO<Storage> {
      * @param currency
      * @return true || false (для последующих проверок)
      */
-    boolean updateAmount(Storage storage, Currency currency, BigDecimal amount);
+    boolean updateAmount(Storage storage, Currency currency, BigDecimal amount) throws AmountException, CurrencyException;
 }

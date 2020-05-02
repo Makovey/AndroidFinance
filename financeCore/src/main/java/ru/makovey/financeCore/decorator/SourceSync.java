@@ -70,13 +70,7 @@ public class SourceSync implements SourceDAO {
     public boolean delete(Source source) {
         // TODO добавить нужные Exceptions
         if (sourceDAO.delete(source)) {
-            identityMap.remove(source.getId());
-            if (source.getParent() != null) {
-                source.getParent().removeChild(source);
-            } else {
-                sourceMap.get(source.getOperationType()).remove(source);
-                treeSource.remove(source);
-            }
+            removeFromCollections(source);
             return true;
         }
         return false;
@@ -89,13 +83,38 @@ public class SourceSync implements SourceDAO {
 
     @Override
     public boolean add(Source object) {
-        if(sourceDAO.add(object){
+        if (sourceDAO.add(object)) {
+            addToCollections(object);
+            return true;
+        }
+        return false;
+    }
 
+    // если понадабятся получить напрямую из БД
+    public SourceDAO getSourceDAO() {
+        return sourceDAO;
+    }
+
+    private void addToCollections(Source source) {
+        identityMap.put(source.getId(), source);
+
+        if (source.hasParent()) {
+            if (!source.getParent().getChilds().contains(source)) { // если это ребенок и он раннее не был добавлен
+                source.getParent().addChild(source);
+            }
+        } else { // если элемент корневой
+            sourceMap.get(source.getOperationType()).add(source);
+            treeSource.add(source);
         }
     }
 
-    // если понадабятся получить напрямую из DP
-    public SourceDAO getSourceDAO() {
-        return sourceDAO;
+    private void removeFromCollections(Source source) {
+        identityMap.remove(source.getId(), source);
+        if (source.hasParent()) { // если это дочерний `элемент
+            source.getParent().removeChild(source);
+        } else { // если элемент корневой
+            sourceMap.get(source.getOperationType()).remove(source);
+            treeSource.remove(source);
+        }
     }
 }

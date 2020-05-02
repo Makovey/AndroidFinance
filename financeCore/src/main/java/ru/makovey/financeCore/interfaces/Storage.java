@@ -15,7 +15,7 @@ public interface Storage extends CompositeTree{
      * Метод добавления валюты в хранилище
      * @param currency
      */
-    void addCurrency(Currency currency) throws CurrencyException;
+    void addCurrency(Currency currency, BigDecimal amount) throws CurrencyException;
 
 
     /**
