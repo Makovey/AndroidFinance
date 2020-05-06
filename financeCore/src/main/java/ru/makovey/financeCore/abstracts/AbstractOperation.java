@@ -7,7 +7,9 @@ import ru.makovey.financeCore.interfaces.Operation;
 
 public abstract class AbstractOperation implements Operation {
 
-    public AbstractOperation(){}
+    public AbstractOperation(OperationType operationType) {
+        this.operationType = operationType;
+    }
 
     public AbstractOperation(int id, Calendar date, String description, OperationType operationType) {
         this.id = id;
@@ -61,6 +63,10 @@ public abstract class AbstractOperation implements Operation {
         return description;
     }
 
+    public Calendar getDateTime(){
+        return date;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -71,5 +77,10 @@ public abstract class AbstractOperation implements Operation {
 
     public void setOperationType(OperationType operationType) {
         this.operationType = operationType;
+    }
+
+    @Override
+    public int compareTo(Operation operation) { // по умолчанию сортируем по дате
+        return operation.getDateTime().compareTo(date);
     }
 }

@@ -1,10 +1,10 @@
 package ru.makovey.financeCore.impls.operations;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Currency;
 
 import ru.makovey.financeCore.abstracts.AbstractOperation;
+import ru.makovey.financeCore.enums.OperationType;
 import ru.makovey.financeCore.interfaces.Source;
 import ru.makovey.financeCore.interfaces.Storage;
 
@@ -13,30 +13,9 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 //TODO для всех классов создать конструкторы без id, так как будет autoincrement в бд
 public class IncomeOperation extends AbstractOperation {
+
     public IncomeOperation() {
-    }
-
-    public IncomeOperation(Source fromSource, Storage toStorage, BigDecimal fromAmount, java.util.Currency currency) {
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.fromAmount = fromAmount;
-        fromCurrency = currency;
-    }
-
-    public IncomeOperation(int id, Source fromSource, Storage toStorage, BigDecimal fromAmount, java.util.Currency currency) {
-        super(id);
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.fromAmount = fromAmount;
-        fromCurrency = currency;
-    }
-
-    public IncomeOperation(int id, Calendar date, String addInfo, Source fromSource, Storage toStorage, BigDecimal fromAmount, java.util.Currency currency) {
-        super(id, date, addInfo);
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.fromAmount = fromAmount;
-        fromCurrency = currency;
+        super(OperationType.INCOME);
     }
 
     /**

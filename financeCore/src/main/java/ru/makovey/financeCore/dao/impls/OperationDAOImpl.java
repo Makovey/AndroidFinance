@@ -54,6 +54,8 @@ public class OperationDAOImpl implements OperationDAO {
                 operationList.add(fillOperation(rs));
             }
 
+            return operationList;
+
         } catch (SQLException e) {
             Logger.getLogger(OperationDAOImpl.class.getName()).log(Level.SEVERE, null, e);
         }

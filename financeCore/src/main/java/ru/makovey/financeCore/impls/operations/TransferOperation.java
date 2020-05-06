@@ -1,10 +1,10 @@
 package ru.makovey.financeCore.impls.operations;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Currency;
 
 import ru.makovey.financeCore.abstracts.AbstractOperation;
+import ru.makovey.financeCore.enums.OperationType;
 import ru.makovey.financeCore.interfaces.Storage;
 
 /**
@@ -12,29 +12,8 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 public class TransferOperation extends AbstractOperation {
 
-    public TransferOperation(){}
-
-    public TransferOperation(Storage fromStorage, Storage toStorage, BigDecimal fromAmount, Currency fromCurrency) {
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromAmount = fromAmount;
-        this.fromCurrency = fromCurrency;
-    }
-
-    public TransferOperation(int id, Storage fromStorage, Storage toStorage, BigDecimal fromAmount, Currency fromCurrency) {
-        super(id);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromAmount = fromAmount;
-        this.fromCurrency = fromCurrency;
-    }
-
-    public TransferOperation(int id, Calendar date, String addInfo, Storage fromStorage, Storage toStorage, BigDecimal fromAmount, Currency fromCurrency) {
-        super(id, date, addInfo);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromAmount = fromAmount;
-        this.fromCurrency = fromCurrency;
+    public TransferOperation(){
+        super(OperationType.TRANSFER);
     }
 
     /**

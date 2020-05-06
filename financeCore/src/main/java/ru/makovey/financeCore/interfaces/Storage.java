@@ -39,7 +39,7 @@ public interface Storage extends CompositeTree{
 
 
 
-    // Изменение баланса
+    // изменение баланса
     /**
      * Метод вычитания суммы в валюте
      * @param amount - сумма вычитания

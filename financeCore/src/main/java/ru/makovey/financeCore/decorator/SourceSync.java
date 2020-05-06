@@ -40,7 +40,7 @@ public class SourceSync implements SourceDAO {
 
     /**
      * Разделение коллекции по типам
-     * Инициализируется один раз
+     * инициализируется один раз
      */
     private void fillSourceMap(List<Source> list) {
         for (OperationType type : OperationType.values()) {
@@ -88,6 +88,10 @@ public class SourceSync implements SourceDAO {
             return true;
         }
         return false;
+    }
+
+    public Map<Integer, Source> getIdentityMap() {
+        return identityMap;
     }
 
     // если понадабятся получить напрямую из БД

@@ -18,7 +18,7 @@ public interface CompositeTree {
 
 
     /**
-     * Имя узла
+     * имя узла
      *
      * @return name
      */

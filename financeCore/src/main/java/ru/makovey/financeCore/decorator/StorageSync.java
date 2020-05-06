@@ -103,6 +103,10 @@ public class StorageSync implements StorageDAO {
         return false;
     }
 
+    public Map<Integer, Storage> getIdentityMap() {
+        return identityMap;
+    }
+
     private void addToCollections(Storage storage) {
         identityMap.put(storage.getId(), storage);
 

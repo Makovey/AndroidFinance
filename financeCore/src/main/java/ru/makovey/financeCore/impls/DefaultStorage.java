@@ -69,13 +69,13 @@ public class DefaultStorage extends AbstractCompositeTree implements Storage {
     }
 
     @Override
-    public void addCurrency(Currency currency) throws CurrencyException {
+    public void addCurrency(Currency currency, BigDecimal amount) throws CurrencyException {
         if (currencyAmounts.containsKey(currency)) {
             throw new CurrencyException("Currency " + currency + " alreay exist.");
         }
 
         // установка ключа, с пока еще пустым значением
-        currencyAmounts.put(currency, BigDecimal.ZERO);
+        currencyAmounts.put(currency, amount);
         currencyList.add(currency);
     }
 

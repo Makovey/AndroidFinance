@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import ru.makovey.financeCore.enums.OperationType;
 
-public interface Operation extends CompositeTree {
+public interface Operation extends Comparable<Operation> {
 
     int getId();
 

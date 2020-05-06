@@ -1,10 +1,10 @@
 package ru.makovey.financeCore.impls.operations;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Currency;
 
 import ru.makovey.financeCore.abstracts.AbstractOperation;
+import ru.makovey.financeCore.enums.OperationType;
 import ru.makovey.financeCore.interfaces.Source;
 import ru.makovey.financeCore.interfaces.Storage;
 
@@ -13,33 +13,12 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 public class OutcomeOperation extends AbstractOperation {
 
-    public OutcomeOperation(){}
-
-    public OutcomeOperation(Storage fromStorage, Source toSource, BigDecimal fromAmount, java.util.Currency fromCurrency) {
-        this.fromStorage = fromStorage;
-        this.toSource = toSource;
-        this.fromAmount = fromAmount;
-        this.fromCurrency = fromCurrency;
-    }
-
-    public OutcomeOperation(int id, Storage fromStorage, Source toSource, BigDecimal fromAmount, java.util.Currency fromCurrency) {
-        super(id);
-        this.fromStorage = fromStorage;
-        this.toSource = toSource;
-        this.fromAmount = fromAmount;
-        this.fromCurrency = fromCurrency;
-    }
-
-    public OutcomeOperation(int id, Calendar date, String addInfo, Storage fromStorage, Source toSource, BigDecimal fromAmount, java.util.Currency fromCurrency) {
-        super(id, date, addInfo);
-        this.fromStorage = fromStorage;
-        this.toSource = toSource;
-        this.fromAmount = fromAmount;
-        this.fromCurrency = fromCurrency;
+    public OutcomeOperation(){
+        super(OperationType.OUTCOME);
     }
 
     /**
-     * Из какого хранилища уйдут средства
+     * из какого хранилища уйдут средства
      */
     private Storage fromStorage;
 

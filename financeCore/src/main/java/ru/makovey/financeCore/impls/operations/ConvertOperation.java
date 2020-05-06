@@ -1,10 +1,10 @@
 package ru.makovey.financeCore.impls.operations;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Currency;
 
 import ru.makovey.financeCore.abstracts.AbstractOperation;
+import ru.makovey.financeCore.enums.OperationType;
 import ru.makovey.financeCore.interfaces.Storage;
 
 /**
@@ -12,35 +12,8 @@ import ru.makovey.financeCore.interfaces.Storage;
  */
 public class ConvertOperation extends AbstractOperation {
 
-    public ConvertOperation(){}
-
-    public ConvertOperation(Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
-    }
-
-    public ConvertOperation(int id, Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        super(id);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
-    }
-
-    public ConvertOperation(int id, Calendar date, String addInfo, Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        super(id, date, addInfo);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
+    public ConvertOperation() {
+        super(OperationType.CONVERT);
     }
 
     /**
@@ -54,7 +27,7 @@ public class ConvertOperation extends AbstractOperation {
     private Storage toStorage;
 
     /**
-     * Из какой валюты конвертация
+     * из какой валюты конвертация
      */
     private Currency fromCurrency;
 
